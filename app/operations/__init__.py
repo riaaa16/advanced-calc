@@ -1,20 +1,10 @@
+'''
+Operation Classes that performs arithmetic operations
+- uses the command pattern to encapsulate each operation as an object
+- the template method pattern defines a framework subclass have to follow
+'''
 from abc import ABC, abstractmethod  # For creating abstract base classes (ABCs).
 import logging
-
-# ==============================================================================
-# OPERATION CLASSES (COMMAND AND TEMPLATE METHOD PATTERNS)
-# ==============================================================================
-
-# Who: These classes are the core components that perform arithmetic operations.
-# What: Implement arithmetic operations using design patterns.
-# Why: To demonstrate OOP principles and design patterns for clean, maintainable code.
-# Where: In the calculator application we are building.
-# When: Whenever an arithmetic operation is requested.
-# How: By defining a base class and extending it for specific operations.
-
-# We will implement the Command Pattern, where each operation (e.g., addition, subtraction)
-# is encapsulated as an object. The Template Method Pattern is used to define the
-# skeleton of an algorithm, deferring some steps to subclasses.
 
 class TemplateOperation(ABC):
     """
@@ -41,8 +31,10 @@ class TemplateOperation(ABC):
         Raises a ValueError if inputs are not numeric types.
         """
         if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-            logging.error(f"Invalid input: {a}, {b} (Inputs must be numbers)")  # Log an error message.
-            raise ValueError("Both inputs must be numbers.")  # Raise an exception.
+            # Log an error message.
+            logging.error("Invalid input: %s, %s (Inputs must be numbers)", a, b)
+            # Raise an exception.
+            raise ValueError("Both inputs must be numbers.")
 
     @abstractmethod
     def execute(self, a: float, b: float) -> float:
@@ -55,7 +47,8 @@ class TemplateOperation(ABC):
         """
         Logs the result of the calculation.
         """
-        logging.info(f"Operation performed: {a} and {b} -> Result: {result}")  # Log an informational message.
+        # Log an informational message.
+        logging.info("Operation performed: %s and %s -> Result: %s", a, b, result)
 
 # Concrete operation classes implementing specific arithmetic operations.
 # Each class represents a specific operation and extends the TemplateOperation base class.
@@ -109,5 +102,6 @@ class Division(TemplateOperation):
         return a / b  # Perform division.
 
 # Why use the Template Method Pattern here?
-# - It defines the algorithm's skeleton in a method (`calculate`), deferring some steps (`execute`) to subclasses.
+# - It defines the algorithm's skeleton in a method (`calculate`),
+# deferring some steps (`execute`) to subclasses.
 # - Promotes code reuse and enforces a consistent structure across different operations.
