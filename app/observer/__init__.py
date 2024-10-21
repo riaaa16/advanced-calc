@@ -1,19 +1,14 @@
+'''
+Observer pattern for tracking history
+- HistoryObserrver and CalculatorWithObserver classes
+- observers are notified of changes in calculation history
+- logs whenever a new calculation is performed
+'''
 import logging
 from typing import List  # Provides support for type hints.
 
 from app.operations import TemplateOperation
 from app.calculation import Calculation
-
-# ==============================================================================
-# OBSERVER PATTERN FOR TRACKING HISTORY
-# ==============================================================================
-
-# Who: The HistoryObserver and CalculatorWithObserver classes.
-# What: Allows observers to be notified of changes in the calculation history.
-# Why: To promote loose coupling between the calculator and observers, adhering to the Observer Pattern.
-# Where: In the calculator's history management.
-# When: Whenever a new calculation is performed.
-# How: Observers register themselves with the calculator and are notified upon updates.
 
 class HistoryObserver:
     """
@@ -27,7 +22,7 @@ class HistoryObserver:
         - calculation (Calculation): The calculation object that was added.
         """
         # Log the notification at INFO level.
-        logging.info(f"Observer: New calculation added -> {calculation}")
+        logging.info("Observer: New calculation added -> %s", calculation)
 
 class CalculatorWithObserver:
     """
@@ -45,7 +40,7 @@ class CalculatorWithObserver:
         - observer (HistoryObserver): The observer to add.
         """
         self._observers.append(observer)  # Add the observer to the list.
-        logging.debug(f"Observer added: {observer}")  # Log the addition.
+        logging.debug("Observer added: %s", observer)  # Log the addition.
 
     def notify_observers(self, calculation):
         """
@@ -55,7 +50,7 @@ class CalculatorWithObserver:
         """
         for observer in self._observers:
             observer.update(calculation)  # Call the update method on the observer.
-            logging.debug(f"Notified observer about: {calculation}")  # Log the notification.
+            logging.debug("Notified observer about: %s", calculation)  # Log the notification.
 
     def perform_operation(self, operation: TemplateOperation, a: float, b: float):
         """
@@ -70,9 +65,10 @@ class CalculatorWithObserver:
         calculation = Calculation(operation, a, b)  # Create a new Calculation object.
         self._history.append(calculation)  # Add the calculation to the history.
         self.notify_observers(calculation)  # Notify observers of the new calculation.
-        logging.debug(f"Performed operation: {calculation}")  # Log the operation.
+        logging.debug("Performed operation: %s", calculation)  # Log the operation.
         return operation.calculate(a, b)  # Execute the calculation and return the result.
 
 # Why use the Observer Pattern?
 # - Decouples the calculator from the observers, allowing for dynamic addition/removal of observers.
-# - Promotes a one-to-many dependency between objects, so when one object changes state, all dependents are notified.
+# - Promotes a one-to-many dependency between objects
+# - when one object changes state, all dependents are notified.
