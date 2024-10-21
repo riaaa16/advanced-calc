@@ -1,14 +1,10 @@
 import logging
 import pdb  # Python debugger for interactive debugging sessions.
 # Documentation: https://docs.python.org/3/library/pdb.html
-from abc import ABC, abstractmethod  # For creating abstract base classes (ABCs).
-# Documentation: https://docs.python.org/3/library/abc.html
-from dataclasses import dataclass  # Provides a decorator and functions for automatically adding special methods to classes.
-# Documentation: https://docs.python.org/3/library/dataclasses.html
 from typing import List  # Provides support for type hints.
 # Documentation: https://docs.python.org/3/library/typing.html
 
-from app.log_config import LoggerConfig
+from app.log_config import setup_logging
 from app.operations import TemplateOperation, Addition, Subtraction, Multiplication, Division
 from app.operation_factory import OperationFactory
 from app.observer import HistoryObserver, CalculatorWithObserver
@@ -33,7 +29,7 @@ def calculator():
     import pdb  # Import pdb module for debugging.
 
     # Set up logging configuration
-    LoggerConfig.setup_logging()
+    setup_logging()
 
     # Create an instance of the calculator with observer support.
     calc = CalculatorWithObserver()
