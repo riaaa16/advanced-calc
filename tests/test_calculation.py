@@ -6,30 +6,10 @@ using the pytest framework. It includes tests for the __repr__ and __str__
 methods, verifies arithmetic operations, and checks error handling for 
 division by zero.
 """
+
 import pytest
 from app.operations import Addition, Subtraction, Multiplication, Division
 from app.calculation import Calculation
-
-# Fixtures for operation instances
-@pytest.fixture
-def addition_operation():
-    """Fixture for Addition operation instance."""
-    return Addition()
-
-@pytest.fixture
-def subtraction_operation():
-    """Fixture for Subtraction operation instance."""
-    return Subtraction()
-
-@pytest.fixture
-def multiplication_operation():
-    """Fixture for Multiplication operation instance."""
-    return Multiplication()
-
-@pytest.fixture
-def division_operation_fixture():
-    """Fixture for Division operation instance."""
-    return Division()
 
 # Parameterized test for the __repr__ method
 @pytest.mark.parametrize("operation, operand1, operand2, expected_repr", [
