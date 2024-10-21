@@ -3,12 +3,12 @@ import logging
 
 import pytest
 
+from app.log_config import setup_logging
 from app.operation_factory import OperationFactory
 from app.operations import Addition, Subtraction, Multiplication, Division
 
 # Set up logging configuration for testing
-logging.basicConfig(level=logging.DEBUG)
-
+setup_logging()
 
 @pytest.fixture
 def factory():

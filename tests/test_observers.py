@@ -1,11 +1,11 @@
 import pytest
 import logging
-from app.log_config import LoggerConfig  # Adjust the import according to your structure
+from app.log_config import setup_logging  # Adjust the import according to your structure
 from app.observer import CalculatorWithObserver, HistoryObserver
 from app.operations import Addition  # Assuming Addition is the operation you want to test
 
 # Setup logging before tests
-LoggerConfig.setup_logging()
+setup_logging()
 
 @pytest.fixture
 def calculator_with_observer():

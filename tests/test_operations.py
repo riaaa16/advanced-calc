@@ -1,10 +1,10 @@
 import pytest
 import logging
-from app.log_config import LoggerConfig  # Import your logging configuration
+from app.log_config import setup_logging  # Import your logging configuration
 from app.operations import Addition, Subtraction, Multiplication, Division  # Adjust based on your module structure
 
 # Set up logging configuration
-LoggerConfig.setup_logging()
+setup_logging()
 
 # Fixtures for each operation class
 @pytest.fixture
