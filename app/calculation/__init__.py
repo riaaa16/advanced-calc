@@ -1,23 +1,20 @@
-from dataclasses import dataclass  # Provides a decorator and functions for automatically adding special methods to classes.
+"""
+Calculation class
+- Uses the Strategy Pattern for operation selection.
+- Encapsulates operations.
+- Returns repr and strings for calculations.
+"""
+# Provides a decorator and functions for automatically adding special methods to classes.
+from dataclasses import dataclass
 from typing import List  # Provides support for type hints.
 
 from app.operations import TemplateOperation
-
-# ==============================================================================
-# STRATEGY PATTERN FOR OPERATION SELECTION
-# ==============================================================================
-
-# Who: The Calculation class.
-# What: Represents a calculation using a specific strategy (operation).
-# Why: To encapsulate algorithms (operations) and make them interchangeable.
-# Where: In the execution of calculations.
-# When: When performing operations on operands.
-# How: By holding a reference to a strategy object and executing it.
 
 @dataclass  # Decorator to automatically generate special methods like __init__.
 class Calculation:
     """
     Represents a single calculation using the Strategy Pattern.
+    
     Holds the operation (strategy) and operands.
     """
     operation: TemplateOperation  # The operation to execute (strategy).
@@ -27,16 +24,24 @@ class Calculation:
     def __repr__(self) -> str:
         """
         Official string representation of the Calculation object.
+        
         Used for debugging and logging.
         """
-        return f"Calculation({self.operand1}, {self.operation.__class__.__name__.lower()}, {self.operand2})"
+        return (
+            f"Calculation({self.operand1}, "
+            f"{self.operation.__class__.__name__.lower()}, "
+            f"{self.operand2})"
+        )
 
     def __str__(self) -> str:
         """
         User-friendly string representation of the calculation and result.
         """
         result = self.operation.calculate(self.operand1, self.operand2)  # Perform the calculation.
-        return f"{self.operand1} {self.operation.__class__.__name__.lower()} {self.operand2} = {result}"
+        return (
+            f"{self.operand1} {self.operation.__class__.__name__.lower()} "
+            f"{self.operand2} = {result}"
+        )
 
 # Why use the Strategy Pattern?
 # - Allows the algorithm (operation) to vary independently from the clients that use it.
