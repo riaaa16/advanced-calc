@@ -1,13 +1,15 @@
+"""
+Test Module for SingletonCalculator
+
+This module contains tests for the SingletonCalculator class, focusing on
+its ability to perform operations while maintaining a history of calculations.
+It ensures that the history is correctly updated after each operation.
+"""
+
 import pytest
 from app.operations import Addition, Subtraction
 from app.singleton_calc import SingletonCalculator
 
-@pytest.fixture(scope='function')
-def singleton_calculator():
-    """Fixture to provide a fresh instance of SingletonCalculator."""
-    # Resetting the singleton instance by deleting it (if necessary)
-    SingletonCalculator._instance = None
-    return SingletonCalculator()  # This will always return a fresh instance
 
 # Parameterized test for performing operations
 @pytest.mark.parametrize("operation, a, b", [
@@ -15,11 +17,15 @@ def singleton_calculator():
     (Addition(), 5.5, 4.5),
     (Subtraction(), 0, 0),
 ])
-def test_history(singleton_calculator, operation, a, b):
+def test_history(operation, a, b):
     """Test that history is correctly updated after operations."""
-    singleton_calculator.perform_operation(operation, a, b)
-    history = singleton_calculator.get_history()
-    
+    # Create a new instance of SingletonCalculator
+    calculator = SingletonCalculator()
+    calculator.get_history().clear()  # Clear the history before the test
+
+    calculator.perform_operation(operation, a, b)
+    history = calculator.get_history()
+
     assert len(history) == 1  # Ensure history has one entry
     assert history[0].operand1 == a
     assert history[0].operand2 == b

@@ -1,6 +1,6 @@
 import logging
 
-from app.operation_factory import TemplateOperation, Addition, Subtraction, Multiplication, Division
+from app.operation_factory import TemplateOperation
 from app.calculation import Calculation
 
 # ==============================================================================

@@ -1,18 +1,13 @@
+'''
+Factory pattern for creating operations
+- usased factory pattern to creates instances of operation classes
+- based on a given operation name at runtime
+- encapsulates object creation --> open/closed principle
+'''
 import logging
 from typing import List  # Provides support for type hints.
 
 from app.operations import TemplateOperation, Addition, Subtraction, Division, Multiplication
-
-# ==============================================================================
-# FACTORY PATTERN FOR CREATING OPERATIONS
-# ==============================================================================
-
-# Who: The OperationFactory class.
-# What: Creates instances of operation classes based on a given operation name.
-# Why: To encapsulate object creation, promoting loose coupling and adherence to the Open/Closed Principle.
-# Where: Used whenever a new operation needs to be created based on user input.
-# When: At runtime, during the calculator's execution.
-# How: By mapping operation names to their corresponding classes.
 
 class OperationFactory:
     """
@@ -34,10 +29,11 @@ class OperationFactory:
             "divide": Division(),
         }
         # Log the operation creation request at DEBUG level.
-        logging.debug(f"Creating operation for: {operation}")
+        logging.debug("Creating operation for: %s", operation)
         # Retrieve the operation instance from the map.
         return operations_map.get(operation.lower())  # Returns None if the key is not found.
 
 # Why use the Factory Pattern?
 # - It provides a way to create objects without specifying the exact class.
-# - Enhances flexibility and scalability; new operations can be added without modifying existing code.
+# - Enhances flexibility and scalability
+# - new operations can be added without modifying existing code.
